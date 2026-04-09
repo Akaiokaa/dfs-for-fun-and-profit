@@ -32,7 +32,6 @@ public class Practice {
     for(Vertex<T> neighbor: vertex.neighbors){
       printVertexVals(neighbor, visited);
     }
-    
   }
 
 
@@ -46,7 +45,19 @@ public class Practice {
    * @return A set containing all reachable vertices, or an empty set if vertex is null.
    */
   public <T> Set<Vertex<T>> reachable(Vertex<T> vertex) {
-    return null;
+    return reachable(vertex, new HashSet<>());
+  }
+
+  private <T> Set<Vertex<T>> reachable(Vertex<T> vertex, Set<Vertex<T>> visited) {
+    if(vertex == null || visited.contains(vertex)) return new HashSet<>();
+  
+    visited.add(vertex);
+
+    for(Vertex<T> neighbor : vertex.neighbors) {
+      reachable(neighbor, visited);
+    }
+
+    return visited;
   }
 
   /**
