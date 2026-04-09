@@ -70,7 +70,23 @@ public class Practice {
    * @return The maximum value of any reachable vertex, or Integer.MIN_VALUE if vertex is null.
    */
   public int max(Vertex<Integer> vertex) {
-    return -1;
+    return max(vertex, new HashSet<>());
+  }
+  private int max(Vertex<Integer> vertex, Set<Vertex<Integer>> visited) {
+    if(vertex == null || visited.contains(vertex)) return Integer.MIN_VALUE;
+
+    int max = vertex.data;
+
+    visited.add(vertex);
+
+    for(Vertex<Integer> neighbor: vertex.neighbors){
+      int maxOther = max(neighbor, visited);
+      if (maxOther > max) {
+        max = maxOther;
+      }
+    }
+    
+    return max;
   }
 
   /**
