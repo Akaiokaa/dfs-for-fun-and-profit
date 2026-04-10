@@ -133,7 +133,24 @@ public class Practice {
    * @return true if all reachable vertices hold odd values, false otherwise
    */
   public boolean allOdd(Vertex<Integer> vertex) {
-    return true;
+    boolean bool = true;
+    return allOdd(vertex, new HashSet<>(), bool);
+  }
+  // 1 - 3 - 5 - 7 - 9 - 2
+  private boolean allOdd(Vertex<Integer> vertex, Set<Vertex<Integer>> visited, boolean bool) {
+   if(vertex == null || visited.contains(vertex)) return true;
+
+    if (vertex.data % 2 != 0) {
+      visited.add(vertex);
+    } else {
+      bool = !bool;
+      return bool;
+    }
+    for(Vertex<Integer> neighbor: vertex.neighbors){
+      bool = allOdd(neighbor, visited, bool);
+    }
+    return bool;
+
   }
 
   /**
