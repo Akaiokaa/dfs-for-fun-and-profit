@@ -169,23 +169,24 @@ public class Practice {
    */
   public boolean hasStrictlyIncreasingPath(Vertex<Integer> start, Vertex<Integer> end) {
     if(start == null || end == null) throw new NullPointerException();
-    boolean bool = true;
-    return false;
+    return hasStrictlyIncreasingPath(start, end, new HashSet<>());
   }
 
-  private boolean hasStrictlyIncreasingPath(Vertex<Integer> start, Vertex<Integer> end, Set<Vertex<Integer>> visited, boolean bool) {
+  private boolean hasStrictlyIncreasingPath(Vertex<Integer> start, Vertex<Integer> end, Set<Vertex<Integer>> visited) {
     if(start == null || visited.contains(start)) return false;
+
+    if(start.equals(end)) return true;
     
     visited.add(start);
 
-    if (start.equals(end)) {
-      return true;
-    }
-
     for(Vertex<Integer> neighbor: start.neighbors){
-      bool = hasStrictlyIncreasingPath(neighbor, end, visited, bool);
+      if(neighbor.data > start.data) {
+        if(hasStrictlyIncreasingPath(neighbor, end, visited)) {
+          return true;
+        };
+      }
     }
 
-    return bool;
+    return false;
   }
 }
